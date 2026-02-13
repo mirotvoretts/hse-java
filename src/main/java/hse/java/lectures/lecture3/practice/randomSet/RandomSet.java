@@ -81,6 +81,9 @@ public class RandomSet<T> {
     }
 
     public boolean insert(T value) {
+        if (root == null) {
+            throw new EmptySetException("Set is empty");
+        }
         var result = recursiveInsert(root, value);
         if (result == null) {
             return false;
@@ -90,6 +93,9 @@ public class RandomSet<T> {
     }
 
     public boolean remove(T value) {
+        if (root == null) {
+            throw new EmptySetException("Set is empty");
+        }
         if (!contains(value)) {
             return false;
         }
@@ -98,10 +104,16 @@ public class RandomSet<T> {
     }
 
     public boolean contains(T value) {
+        if (root == null) {
+            throw new EmptySetException("Set is empty");
+        }
         return find(root, value);
     }
 
     public T getRandom() {
+        if (root == null) {
+            throw new EmptySetException("Set is empty");
+        }
         return getRandomNode(root).getValue();
     }
 }

@@ -14,5 +14,5 @@ public enum EdgePosition {
     LEFT,
     RIGHT,
     FRONT,
-    BACK
+    BACK;
 }

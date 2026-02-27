@@ -31,7 +31,7 @@ class AtmTest {
     @Test
     void depositIncreasesBalance() {
         Atm atm = new Atm();
-        atm.deposit(Map.of(D100, 10, D500, 5));
+        atm.deposit(Map.of(100, 10, 500, 5));
         assertEquals(3500, atm.getBalance());
     }
 
@@ -45,8 +45,8 @@ class AtmTest {
     @Test
     void depositRejectsNonPositiveCountAndKeepsState() {
         Atm atm = new Atm();
-        atm.deposit(Map.of(D100, 1));
-        assertThrows(InvalidDepositException.class, () -> atm.deposit(Map.of(D100, 0)));
+        atm.deposit(Map.of(100, 1));
+        assertThrows(InvalidDepositException.class, () -> atm.deposit(Map.of(100, 0)));
         assertEquals(100, atm.getBalance());
     }
 
@@ -54,11 +54,11 @@ class AtmTest {
     void withdrawGreedyAndUpdatesBalance() {
         Atm atm = new Atm();
         // 2000
-        atm.deposit(Map.of(D1000, 1, D500, 1, D100, 5));
+        atm.deposit(Map.of(1000, 1, 500, 1, 100, 5));
 
-        Map<Atm.Denomination, Integer> result = atm.withdraw(1700);
+        Map<Integer, Integer> result = atm.withdraw(1700);
 
-        assertEquals(Map.of(D1000, 1, D500, 1, D100, 2), result);
+        assertEquals(Map.of(1000, 1, 500, 1, 100, 2), result);
         assertEquals(300, atm.getBalance());
     }
 
@@ -72,14 +72,14 @@ class AtmTest {
     @Test
     void withdrawRejectsInsufficientFunds() {
         Atm atm = new Atm();
-        atm.deposit(Map.of(D100, 2));
+        atm.deposit(Map.of(100, 2));
         assertThrows(InsufficientFundsException.class, () -> atm.withdraw(300));
     }
 
     @Test
     void withdrawRejectsUnmakeableAmountAndKeepsState() {
         Atm atm = new Atm();
-        atm.deposit(Map.of(D500, 1, D100, 1));
+        atm.deposit(Map.of(500, 1, 100, 1));
         assertThrows(CannotDispenseException.class, () -> atm.withdraw(150));
         assertEquals(600, atm.getBalance());
     }
@@ -99,7 +99,7 @@ class AtmTest {
                     "Case: " + atmCase.name);
             assertEquals(atmCase.expect.balance, atm.getBalance(), "Case: " + atmCase.name);
         } else {
-            Map<Atm.Denomination, Integer> result = atm.withdraw(atmCase.withdraw);
+            var result = atm.withdraw(atmCase.withdraw);
             assertEquals(toMap(atmCase.expect.dispense), result, "Case: " + atmCase.name);
             assertEquals(atmCase.expect.balance, atm.getBalance(), "Case: " + atmCase.name);
         }
@@ -120,10 +120,10 @@ class AtmTest {
         }
     }
 
-    private Map<Atm.Denomination, Integer> toMap(Map<String, Integer> source) {
-        Map<Atm.Denomination, Integer> result = new HashMap<>();
+    private Map<Integer, Integer> toMap(Map<String, Integer> source) {
+        Map<Integer, Integer> result = new HashMap<>();
         for (Map.Entry<String, Integer> entry : source.entrySet()) {
-            result.put(Atm.Denomination.fromInt(Integer.parseInt(entry.getKey())), entry.getValue());
+            result.put(Integer.parseInt(entry.getKey()), entry.getValue());
         }
         return result;
     }

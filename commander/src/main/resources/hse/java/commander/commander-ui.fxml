@@ -2,13 +2,26 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="627.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hse.java.commander.MainController">
-    <HBox prefHeight="370.0" prefWidth="627.0">
+<VBox prefHeight="500.0" prefWidth="700.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hse.java.commander.MainController">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
 
-        <ListView fx:id="left" prefHeight="318.0" prefWidth="311.0" />
-        <ListView fx:id="right" prefHeight="318.0" prefWidth="321.0" />
+    <HBox spacing="10" VBox.vgrow="ALWAYS">
+        <VBox HBox.hgrow="ALWAYS" spacing="5">
+            <Label fx:id="leftPathLabel" style="-fx-font-weight: bold;"/>
+            <ListView fx:id="left" VBox.vgrow="ALWAYS" />
+        </VBox>
 
+        <VBox HBox.hgrow="ALWAYS" spacing="5">
+            <Label fx:id="rightPathLabel" style="-fx-font-weight: bold;"/>
+            <ListView fx:id="right" VBox.vgrow="ALWAYS" />
+        </VBox>
     </HBox>
-   <Button fx:id="move" mnemonicParsing="false" text="Move" />
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Button fx:id="move" text="Move" prefWidth="120" />
+    </HBox>
 </VBox>

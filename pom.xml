@@ -63,14 +63,11 @@
                             <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
-<<<<<<< HEAD
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>
-=======
->>>>>>> 1c195628027c24a0d2a677be0bd75b5381ae77e5
                 </configuration>
             </plugin>
         </plugins>

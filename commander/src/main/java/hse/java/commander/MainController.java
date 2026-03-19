@@ -5,16 +5,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
+<<<<<<< HEAD
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+=======
+import java.nio.file.Path;
+
+public class MainController {
+>>>>>>> 1c195628027c24a0d2a677be0bd75b5381ae77e5
 
 public class MainController {
     @FXML
+<<<<<<< HEAD
     public Button move;
     @FXML
+=======
+>>>>>>> 1c195628027c24a0d2a677be0bd75b5381ae77e5
     public ListView<String> left;
     @FXML
     public ListView<String> right;
@@ -23,6 +32,7 @@ public class MainController {
     @FXML
     public Label rightPathLabel;
 
+<<<<<<< HEAD
     private File leftDirectory = new File(System.getProperty("user.home"));
     private File rightDirectory = new File(System.getProperty("user.home"));
 
@@ -110,3 +120,34 @@ public class MainController {
         }
     }
 }
+=======
+    @FXML
+    public Button move;
+
+    private Path leftDir;
+    private Path rightDir;
+
+    // for testing
+    public void setInitialDirs(Path leftStart, Path rightStart) {
+        this.leftDir = leftStart;
+        this.rightDir = rightStart;
+    }
+
+    public void initialize() {
+        move.setOnMouseClicked(event -> {
+
+        });
+        System.out.println(System.getProperty("user.home"));
+        left.getItems().add("Kek");
+
+        left.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                int index = left.getSelectionModel().getSelectedIndex();
+                if (index >= 0) {
+                    left.getItems().set(index, "clicked");
+                }
+            }
+        });
+    }
+}
+>>>>>>> 1c195628027c24a0d2a677be0bd75b5381ae77e5

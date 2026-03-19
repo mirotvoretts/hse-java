@@ -38,7 +38,7 @@ public class StreamingMonitor {
             throw new IllegalArgumentException("Unknown writer id: " + id);
         }
         while (true) {
-            if (finished) return false;
+            if (isFinished) return false;
             if (currentIndex == index && ticksDone[index] < ticksPerWriter) {
                 return true;
             }
@@ -54,7 +54,7 @@ public class StreamingMonitor {
         ticksDone[index]++;
         totalDone++;
         if (totalDone >= totalTicks) {
-            finished = true;
+            isFinished = true;
             notifyAll();
             return;
         }
@@ -71,7 +71,7 @@ public class StreamingMonitor {
     }
 
     public synchronized void awaitFinish() throws InterruptedException {
-        while (!finished) {
+        while (!isFinished) {
             wait();
         }
     }

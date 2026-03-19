@@ -4,10 +4,10 @@ import lombok.Getter;
 
 import java.io.PrintStream;
 
+@Getter
 public class StreamWriter implements Runnable {
 
     private final String message;
-    @Getter
     private final int id;
     private final PrintStream output;
     private final Runnable onTick;
@@ -26,10 +26,23 @@ public class StreamWriter implements Runnable {
 
     @Override
     public void run() {
-        // Writer threads are intentionally infinite for the task contract.
-        while (true) {
-            output.print(message);
-            onTick.run();
+        try {
+            while (true) {
+                StreamingMonitor monitor = this.monitor;
+                if (monitor == null) {
+                    Thread.yield();
+                    continue;
+                }
+                boolean shouldRun = monitor.waitForTurn(id);
+                if (!shouldRun) {
+                    return;
+                }
+                output.print(message);
+                onTick.run();
+                monitor.doneTick(id);
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 
